@@ -102,18 +102,18 @@ export default function ScoutForm({
         try{" "}
         <button
           type="button"
-          onClick={() => onScout("neetcode")}
+          onClick={() => onScout("skywalkert")}
           className={exampleClass}
         >
-          neetcode
+          skywalkert
         </button>{" "}
         ·{" "}
         <button
           type="button"
-          onClick={() => onScout("errichto")}
+          onClick={() => onScout("cpcs")}
           className={exampleClass}
         >
-          errichto
+          cpcs
         </button>{" "}
         · or your own
       </div>

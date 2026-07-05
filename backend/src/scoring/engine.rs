@@ -51,12 +51,19 @@ pub fn raw_stats(s: &Signals) -> Stats {
             + 12.0 * lg(s.contest_rating)
             + 9.0 * lg(s.contests_attended as f64)
             + 1.5 * lg(s.reputation.max(0) as f64),
-        // Topic breadth leads DRI (as before), with a bonus for hard-tier topic
-        // coverage (mirrors SHO's hard/medium split — advanced topics are worth
-        // more than raw topic count alone) and a smaller nod to language spread.
-        dri: 58.0
-            + 5.0 * (s.topics_solved as f64).sqrt()
-            + 6.0 * (s.hard_topics_solved as f64).sqrt()
+        // Topic breadth leads DRI, with a bonus for hard-tier topic coverage
+        // (mirrors SHO's hard/medium split) and a smaller nod to language
+        // spread. Base + weights kept modest deliberately: LeetCode's Skills
+        // page groups tags into a SMALL FIXED catalog (observed ceiling:
+        // topics_solved maxes ~46, hard_topics_solved maxes ~18 — there's no
+        // larger catalog to keep growing into). The original 58-base/5-6
+        // weight version saturated DRI near 99 for almost anyone with decent
+        // (not even complete) topic coverage — including modest profiles with
+        // otherwise unremarkable stats — which was silently forcing nearly
+        // every card into Playmaker/CAM regardless of their actual shape.
+        dri: 40.0
+            + 4.0 * (s.topics_solved as f64).sqrt()
+            + 3.0 * (s.hard_topics_solved as f64).sqrt()
             + 2.0 * (s.languages_used as f64).sqrt(),
         // Contest rating gets a small direct pull here too, on top of PAS: it's
         // opponent-adjusted and timed, so it's evidence of solving accurately

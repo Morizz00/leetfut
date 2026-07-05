@@ -61,9 +61,13 @@ function PlayerCard({ card }: { card: Card }) {
   const t = resolveCardTheme(card);
   const ink = t.ink;
   const full = card.name.trim();
-  const displayName = (
-    full.length <= 9 ? full : full.split(" ").slice(-1)[0]
-  ).toUpperCase();
+  // "First Last" names shorten to the surname; but a single-word name (common
+  // for LeetCode usernames, e.g. "SupremeChicken") has no surname to fall back
+  // to — split(" ") is a no-op on it — so it must still be hard-capped, or it
+  // overflows the fixed-width card face uncorrected (whiteSpace: nowrap below).
+  const surnameOrFull = full.length <= 9 ? full : full.split(" ").slice(-1)[0];
+  const MAX_NAME_CHARS = 12;
+  const displayName = surnameOrFull.slice(0, MAX_NAME_CHARS).toUpperCase();
 
   const onAvatarError: React.ReactEventHandler<HTMLImageElement> = (e) => {
     e.currentTarget.onerror = null;

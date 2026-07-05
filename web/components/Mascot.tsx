@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 
-// LeetFut mascot — the shared logo asset (public/mascot.webp): the octopus-as-
+// LeetFut mascot — the shared logo asset (public/mascot.png): the octopus-as-
 // footballer kicking the WC26 ball. Rendered as-is; `animate` adds a gentle
 // float (used on the hero/loading screen). The ball is part of the artwork, so
 // the legacy `kick`/`ball` props are accepted but no longer composite anything.
@@ -19,7 +19,7 @@ interface MascotProps {
 function Mascot({ size = 220, className, animate = true }: MascotProps) {
   return (
     <img
-      src="/mascot.webp"
+      src="/mascot.png"
       alt="LeetFut mascot — an octopus footballer kicking the World Cup 26 ball"
       width={size}
       height={size}
