@@ -2,14 +2,37 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// The six LeetCode signals behind each stat.
+// The signals behind each stat, in plain English — every one of these is a
+// real number pulled from your public LeetCode profile.
 const READS = [
-  { abbr: "PAC", gloss: "A year of problems solved" },
-  { abbr: "SHO", gloss: "Hard problems solved, plus medium as backup" },
-  { abbr: "PAS", gloss: "Contest rating and rounds attended" },
-  { abbr: "DRI", gloss: "Your topic range — broad helps, but the 10th counts for less" },
-  { abbr: "DEF", gloss: "Acceptance rate and easy problems closed out" },
-  { abbr: "PHY", gloss: "A lifetime of solves over your active years" },
+  {
+    abbr: "PAC",
+    gloss: "How many problems you've solved in roughly the last year — the pace you're keeping right now.",
+  },
+  {
+    abbr: "SHO",
+    gloss: "Your Hard problems solved, with Medium ones counting too — how much firepower you bring against the tough stuff.",
+  },
+  {
+    abbr: "PAS",
+    gloss:
+      "Your contest rating, how many contests you've entered, and your community reputation on LeetCode — how you show up when it counts, and how the community sees you.",
+  },
+  {
+    abbr: "DRI",
+    gloss:
+      "How many different problem topics you've covered — extra credit for the hardest topic areas — plus how many programming languages you code in. Your range.",
+  },
+  {
+    abbr: "DEF",
+    gloss:
+      "Your acceptance rate and your contest rating — how cleanly and reliably you solve, not just how many attempts it takes to get there.",
+  },
+  {
+    abbr: "PHY",
+    gloss:
+      "Your total problems solved, your total submissions, how many days you've been active this year, and your overall standing on LeetCode. The full weight of your track record.",
+  },
 ];
 
 // How the scout reads you — the three things that make a card a fingerprint
@@ -28,7 +51,7 @@ const LAWS = [
   {
     kicker: "THE 90s ARE EARNED",
     lead: "One big month won't crown you.",
-    body: "Stats top out at 88 on their own. The 90s take years on the clock and a track record that lasts, so a legend rating is consistency, not a hot streak.",
+    body: "Stats alone can only take you to 88. Past that, the card needs proof of a real track record: a large body of solved problems, a sustained history of contests, and a strong overall rank on LeetCode itself — not just recent, but sustained. A single hot month doesn't do it; years of consistent grinding does.",
     gold: true,
   },
 ];

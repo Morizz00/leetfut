@@ -9,7 +9,6 @@ import CardActions from "./CardActions";
 import FlagPicker from "./FlagPicker";
 import Mascot from "./Mascot";
 import FooterCredit from "./FooterCredit";
-import BuyMeACoffee from "./BuyMeACoffee";
 import HowItWorksModal from "./HowItWorksModal";
 import { AttributesPanel, StatsPanel, ScoutingMetrics, TopicsPanel, ReportHeader } from "./ScoutReport";
 import { resolveResultTheme } from "./finishTheme";
@@ -218,8 +217,6 @@ export default function ResultView({
         <StoryFrame ref={storyRef} card={card} />
       </div>
     </main>
-
-    <BuyMeACoffee />
 
     {modalOpen && <HowItWorksModal onClose={() => setModalOpen(false)} />}
     </>
