@@ -1,6 +1,6 @@
 # LeetFut    
 
- leetfut-eta.vercel.app
+ https://leetfut-eta.vercel.app/
 
 
 **your LeetCode, rated out of 99** ⚽
