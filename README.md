@@ -30,6 +30,40 @@ the resulting stat shape.
 Every card walks out in a tier: **Bronze → Silver → Gold → Red → Chrome →
 Icon**, with an **In-Form** overlay for a detected recent solving spike.
 
+## Scout duels
+
+Take your card head-to-head against any other LeetCode profile — six stats, one
+winner. The duel UI is ported from [GitFut](https://github.com/Younesfdj/gitfut)
+and reskinned for LeetCode orange.
+
+| | |
+|---|---|
+| **`leetfut.com/<you>/vs/<rival>`** | the full duel broadcast |
+| **DUEL A RIVAL** on a scout report | enter a rival's username and kick off |
+
+### How a duel is settled
+
+The **shootout** compares all six stats row-by-row (higher value wins that row).
+The scoreline is the count of rows taken (e.g. 4–2). A tied scoreline goes to
+**penalties** — higher overall OVR wins. Same username in both corners is a
+training draw.
+
+| | Stat | Compared |
+|:--:|:--|:--|
+| **PAC** | Pace | Problems solved in the last year |
+| **SHO** | Shooting | Hard + Medium problems solved |
+| **PAS** | Passing | Contest rating, contests attended, reputation |
+| **DRI** | Dribbling | Topic breadth, hard topics, language diversity |
+| **DEF** | Defending | Acceptance rate, contest rating |
+| **PHY** | Physical | Total solved, submissions, active days, site rank |
+
+After full time, **The Receipts** show raw LeetCode numbers for context only —
+contest rating, hard solves, contests attended, reputation, topics solved, and
+total problems solved. They do not change who wins.
+
+Share links are score-free by design: the fixture poster sells the click, the
+page plays the match.
+
 ## Architecture
 
 Two independent services, deliberately separated:
@@ -37,14 +71,15 @@ Two independent services, deliberately separated:
 - **`backend/`** — Rust (Axum). Owns everything stateful: fetching from
   LeetCode's unofficial GraphQL endpoint, the scoring engine, and Redis
   caching. Exposes one endpoint, `GET /card/:username`.
-- **`web/`** — Next.js. Pure UI. Calls the backend (via a same-origin API
-  proxy route) and renders the card, scout report, and share flow. No
-  business logic of its own.
+- **`web/`** — Next.js. Calls the backend (via a same-origin API proxy route)
+  and renders the card, scout report, share flow, and **duels**. Single-card
+  scoring lives in Rust; head-to-head comparison (`computeDuel` in
+  `web/lib/duel.ts`) runs in the Next.js route after loading two cards.
 
 ## Credit
 
 LeetFut's UI — the FUT-card look, the scout report layout, the reveal
-animation, the whole visual language — is directly inspired by
+animation, scout duels, the whole visual language — is directly inspired by
 **[GitFut](https://github.com/Younesfdj/gitfut)**, which does the same thing
 for GitHub profiles. LeetFut ported and reskinned that UI for LeetCode; all
 credit for the original design goes to the GitFut team.
