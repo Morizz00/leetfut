@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SAMPLE_USERNAMES } from "@/lib/samples";
 
-const BASE = "https://leetfut.com";
+import { siteUrl } from "@/lib/site";
+
+const BASE = siteUrl();
 
 // Home + the showcase profiles (indexable example cards). Per-user pages are
 // generated on demand, so they aren't enumerated here.

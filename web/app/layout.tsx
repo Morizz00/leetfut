@@ -3,6 +3,7 @@ import { Bebas_Neue, Inter, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { siteUrl } from "@/lib/site";
 
 // Display — ultra-condensed all-caps for the WC26 "tournament" impact.
 const display = Bebas_Neue({
@@ -35,7 +36,7 @@ const DESCRIPTION =
   "Rate any LeetCode profile out of 99 as a FIFA-Ultimate-Team-style player card, scored from real submissions, contests and streaks. Get scouted and share your card.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://leetfut.com"),
+  metadataBase: new URL(siteUrl()),
   title: TITLE,
   description: DESCRIPTION,
   keywords: [
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    url: "https://leetfut.com",
+    url: siteUrl(),
     siteName: "LeetFut",
     type: "website",
   },

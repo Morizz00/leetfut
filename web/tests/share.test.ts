@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Card } from "@/lib/types";
+import { siteUrl } from "@/lib/site";
 import { cardUrl, duelIntentUrl, duelShareMessage, duelUrl, intentUrl, nativeSharePayload, shareMessage, shareText } from "@/lib/share";
 
 // We test the share DECISIONS: correct platform endpoints, well-formed encoded
@@ -31,11 +32,11 @@ const card = (over: Partial<Card> = {}): Card =>
 
 describe("share service", () => {
   it("builds the canonical card URL from the username, encoding the displayed flag", () => {
-    expect(cardUrl(card())).toBe("https://leetfut.com/notorious137?country=us");
+    expect(cardUrl(card())).toBe(`${siteUrl()}/notorious137?country=us`);
   });
 
   it("omits the country param when the card has no flag", () => {
-    expect(cardUrl(card({ country: "" }))).toBe("https://leetfut.com/notorious137");
+    expect(cardUrl(card({ country: "" }))).toBe(`${siteUrl()}/notorious137`);
   });
 
   it("X intent uses /intent/tweet (NOT /intent/post) and carries url + hashtag", () => {
@@ -43,19 +44,19 @@ describe("share service", () => {
     expect(u).toContain("https://twitter.com/intent/tweet?");
     expect(u).not.toContain("/intent/post");
     expect(u).toContain("hashtags=LeetFut");
-    expect(u).toContain(encodeURIComponent("https://leetfut.com/notorious137?country=us"));
+    expect(u).toContain(encodeURIComponent(`${siteUrl()}/notorious137?country=us`));
   });
 
   it("LinkedIn intent uses share-offsite with only the url (preview from OG)", () => {
     const u = intentUrl("linkedin", card());
     expect(u).toContain("linkedin.com/sharing/share-offsite/?url=");
-    expect(u).toContain(encodeURIComponent("https://leetfut.com/notorious137?country=us"));
+    expect(u).toContain(encodeURIComponent(`${siteUrl()}/notorious137?country=us`));
   });
 
   it("WhatsApp intent puts text + url in the message", () => {
     const u = intentUrl("whatsapp", card());
     expect(u).toContain("api.whatsapp.com/send?text=");
-    expect(decodeURIComponent(u)).toContain("leetfut.com/notorious137?country=us");
+    expect(decodeURIComponent(u)).toContain(`${siteUrl().replace("https://", "")}/notorious137?country=us`);
   });
 
   it("share text is deterministic per username and mentions the rating", () => {
@@ -76,7 +77,7 @@ describe("share service", () => {
   it("native payload carries title, brag-led text, and url", () => {
     const p = nativeSharePayload(card());
     expect(p.title).toBe("LeetFut");
-    expect(p.url).toBe("https://leetfut.com/notorious137?country=us");
+    expect(p.url).toBe(`${siteUrl()}/notorious137?country=us`);
     expect(p.text).toBe(shareMessage(card()));
     expect(p.text).toContain("get scouted");
   });
@@ -86,7 +87,7 @@ describe("share service", () => {
   });
 
   it("duel URL follows the /challenger/vs/opponent pattern", () => {
-    expect(duelUrl("skywalkert", "cpcs")).toBe("https://leetfut.com/skywalkert/vs/cpcs");
+    expect(duelUrl("skywalkert", "cpcs")).toBe(`${siteUrl()}/skywalkert/vs/cpcs`);
   });
 
   it("duel share message is score-free and mentions the opponent", () => {
@@ -98,6 +99,6 @@ describe("share service", () => {
   it("duel X intent carries LeetFut hashtag", () => {
     const u = duelIntentUrl("skywalkert", "cpcs");
     expect(u).toContain("hashtags=LeetFut");
-    expect(u).toContain(encodeURIComponent("https://leetfut.com/skywalkert/vs/cpcs"));
+    expect(u).toContain(encodeURIComponent(`${siteUrl()}/skywalkert/vs/cpcs`));
   });
 });

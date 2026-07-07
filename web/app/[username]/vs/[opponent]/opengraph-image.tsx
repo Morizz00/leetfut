@@ -6,6 +6,7 @@ import { VS_PALETTE } from "@/components/VsBurst";
 import { S_PATH, V_PATH, particlesAlong, sliverBetween } from "@/lib/vsBurst";
 import { loadCardAssets, cardTree } from "@/lib/og/renderCard";
 import { loadCardFonts } from "@/lib/og/card";
+import { siteHost } from "@/lib/site";
 import type { Card } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -100,7 +101,7 @@ export default async function Image({
               marginTop: 10,
             }}
           >
-            leetfut.com
+            {siteHost()}
           </div>
         </div>
       ),

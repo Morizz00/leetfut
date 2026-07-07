@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site";
 
-const BASE = "https://leetfut.com";
+const BASE = siteUrl();
 
 export default function robots(): MetadataRoute.Robots {
   return {

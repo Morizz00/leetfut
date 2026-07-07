@@ -5,6 +5,7 @@ import { deEmDash } from "@/lib/text";
 import { FINISH_LABEL } from "@/components/finishTheme";
 import { loadCardAssets, cardTree } from "@/lib/og/renderCard";
 import { loadCardFonts } from "@/lib/og/card";
+import { siteHost } from "@/lib/site";
 import type { Card } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -62,7 +63,7 @@ export default async function Image({ params }: { params: Promise<{ username: st
           <div style={{ display: "flex", color: "#ffa116", fontSize: 26, fontWeight: 700, letterSpacing: 4 }}>LEETCODE × WORLD CUP 26</div>
           <div style={{ display: "flex", fontSize: 84, fontWeight: 700, marginTop: 20 }}>@{username}</div>
           <div style={{ display: "flex", fontSize: 34, color: "#a8b3bd", marginTop: 18 }}>Get your LeetCode rated out of 99.</div>
-          <div style={{ display: "flex", fontSize: 30, color: "#ffa116", fontWeight: 700, marginTop: 26 }}>leetfut.com</div>
+          <div style={{ display: "flex", fontSize: 30, color: "#ffa116", fontWeight: 700, marginTop: 26 }}>{siteHost()}</div>
         </div>
       ),
       { ...size, fonts, headers: CACHE },
@@ -106,7 +107,7 @@ export default async function Image({ params }: { params: Promise<{ username: st
           <div style={{ display: "flex", fontSize: 30, color: "#a8b3bd", marginTop: 22, lineHeight: 1.3, maxWidth: 600 }}>
             {deEmDash(card.archetypeBlurb)}.
           </div>
-          <div style={{ display: "flex", fontSize: 26, color: "#6e7681", marginTop: 32 }}>leetfut.com/{card.username}</div>
+          <div style={{ display: "flex", fontSize: 26, color: "#6e7681", marginTop: 32 }}>{siteHost()}/{card.username}</div>
         </div>
       </div>
     ),

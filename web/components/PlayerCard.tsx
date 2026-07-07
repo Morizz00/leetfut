@@ -2,6 +2,7 @@
 
 import { memo, type CSSProperties } from "react";
 import type { Card, StatKey } from "@/lib/types";
+import { siteHostDisplay } from "@/lib/site";
 import { resolveCardTheme } from "./finishTheme";
 
 // Faithful port of GitFut's FUT-card layout. Positions are percentages of the
@@ -283,7 +284,7 @@ function PlayerCard({ card }: { card: Card }) {
             opacity: 0.62,
           }}
         >
-          LEETFUT.COM
+          {siteHostDisplay()}
         </div>
         <div
           style={{

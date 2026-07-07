@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { SAMPLE_CARDS } from "@/lib/samples";
 import { loadCardAssets, cardTree } from "@/lib/og/renderCard";
+import { siteHost } from "@/lib/site";
 
 // Branded preview for the home page / bare leetfut.com links. Next wires this as
 // the default og:image + twitter:image automatically (metadataBase is absolute).
@@ -48,7 +49,7 @@ export default async function Image() {
               Turn any LeetCode profile into a World-Cup-style player card, rated out of 99.
             </div>
           </div>
-          <div style={{ display: "flex", fontSize: 28, color: "#6e7681" }}>leetfut.com</div>
+          <div style={{ display: "flex", fontSize: 28, color: "#6e7681" }}>{siteHost()}</div>
         </div>
 
         {/* the real card as the hero (tourist sample), same renderer as the embeds */}

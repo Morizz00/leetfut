@@ -38,7 +38,7 @@ and reskinned for LeetCode orange.
 
 | | |
 |---|---|
-| **`leetfut.com/<you>/vs/<rival>`** | the full duel broadcast |
+| **`leetfut-eta.vercel.app/<you>/vs/<rival>`** | the full duel broadcast |
 | **DUEL A RIVAL** on a scout report | enter a rival's username and kick off |
 
 ### How a duel is settled
@@ -109,6 +109,9 @@ LEETFUT_API_URL=http://127.0.0.1:8080 npm run dev
 Env vars:
 - `LEETFUT_API_URL` — base URL of the running backend (defaults to
   `http://localhost:8080`)
+- `NEXT_PUBLIC_SITE_URL` — public site URL for share links, OG tags, and card
+  signatures (defaults to `https://leetfut-eta.vercel.app`; set this in Vercel
+  if you add a custom domain later)
 
 ### Docker (backend)
 
@@ -124,7 +127,9 @@ docker run -p 8080:8080 -e REDIS_URL=redis://your-redis-host:6379 leetfut-backen
   ready to go; set the service's root directory to `backend/` in the Railway
   dashboard and it picks up the Dockerfile automatically.
 - **Frontend** — Vercel. Point it at `web/` as the project root, and set
-  `LEETFUT_API_URL` to the deployed Railway backend's public URL.
+  `LEETFUT_API_URL` to the deployed Railway backend's public URL. Optionally set
+  `NEXT_PUBLIC_SITE_URL` to your canonical domain (e.g.
+  `https://leetfut-eta.vercel.app`) so share/copy links match the live URL.
 
 ## Tech stack
 
