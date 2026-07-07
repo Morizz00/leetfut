@@ -248,6 +248,103 @@
   }
 }
 
+/* ---- THE DUEL: mirrored walkouts ---- */
+@keyframes walkout-left {
+  0% {
+    transform: translateX(-72px) translateY(30px) rotate(-4deg) scale(0.9);
+    opacity: 0;
+    filter: brightness(0.4) saturate(0.6);
+  }
+  55% {
+    opacity: 1;
+  }
+  70% {
+    filter: brightness(1.25) saturate(1.1);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0) scale(1);
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+  }
+}
+@keyframes walkout-right {
+  0% {
+    transform: translateX(72px) translateY(30px) rotate(4deg) scale(0.9);
+    opacity: 0;
+    filter: brightness(0.4) saturate(0.6);
+  }
+  55% {
+    opacity: 1;
+  }
+  70% {
+    filter: brightness(1.25) saturate(1.1);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0) scale(1);
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes lf-row-resolve {
+  0% {
+    opacity: 0;
+    transform: translateY(7px) scale(0.96);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lf-radar-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes lf-score-tick {
+  0% {
+    transform: translateY(-40%) scale(1.25);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes duel-sweep {
+  0% {
+    transform: translateX(-110%);
+  }
+  9%,
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+@keyframes ball-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
 /* submission-grid shimmer used as a brand motif */
 .lf-grid-cell {
   animation: lf-cell var(--lf-dur, 3s) ease-in-out infinite;

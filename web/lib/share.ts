@@ -87,3 +87,45 @@ export function nativeSharePayload(card: Card): { title: string; text: string; u
 export function shareUrl(card: Card): string {
   return intentUrl("x", card);
 }
+
+// ---- Duel sharing ----
+// Score-free by design: the fixture poster never spoils the result.
+
+export function duelUrl(challenger: string, opponent: string): string {
+  return `${SITE}/${challenger}/vs/${opponent}`;
+}
+
+const duelLines = (opponent: string): string[] => [
+  `just dragged @${opponent} onto the pitch. full-time score inside.`,
+  `me vs @${opponent}, settled on leetcode stats. someone got cooked.`,
+  `called out @${opponent} for a duel. the scoreline does the talking.`,
+  `six stats, no VAR. me vs @${opponent} — result inside.`,
+];
+
+export function duelShareMessage(challenger: string, opponent: string): string {
+  const pool = duelLines(opponent);
+  return `${pool[hash(`${challenger}/${opponent}`) % pool.length]}\n\nwatch the duel →`;
+}
+
+export function duelIntentUrl(challenger: string, opponent: string): string {
+  const url = duelUrl(challenger, opponent);
+  const text = duelShareMessage(challenger, opponent);
+  return (
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(text) +
+    "&url=" +
+    encodeURIComponent(url) +
+    "&hashtags=LeetFut"
+  );
+}
+
+export function duelSharePayload(
+  challenger: string,
+  opponent: string,
+): { title: string; text: string; url: string } {
+  return {
+    title: "LeetFut Duel",
+    text: duelShareMessage(challenger, opponent),
+    url: duelUrl(challenger, opponent),
+  };
+}

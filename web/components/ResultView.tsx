@@ -6,6 +6,7 @@ import type { Card } from "@/lib/types";
 import PlayerCard from "./PlayerCard";
 import StoryFrame from "./StoryFrame";
 import CardActions from "./CardActions";
+import DuelButton from "./DuelButton";
 import FlagPicker from "./FlagPicker";
 import Mascot from "./Mascot";
 import FooterCredit from "./FooterCredit";
@@ -177,6 +178,9 @@ export default function ResultView({
               storyRef={storyRef}
               canonicalCountry={canonicalCountry}
             />
+            <div className="mt-[10px]">
+              <DuelButton username={card.username} />
+            </div>
           </div>
         </div>
 

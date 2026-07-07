@@ -113,3 +113,15 @@ export const RESULT_THEME: Record<Finish, ResultTheme> = {
 export function resolveResultTheme(card: Card): ResultTheme {
   return RESULT_THEME[card.finish];
 }
+
+// ---- Duel kit clash: totw/chrome vs silver ----
+const TOTW_KIT: ResultTheme = { ink: "#7fa8ff", glow: RESULT_THEME.totw.glow, chip: RESULT_THEME.totw.chip };
+const wearsTotwBlue = (f: Finish) => f === "totw" || f === "chrome";
+
+export function duelThemes(challenger: Card, opponent: Card): { home: ResultTheme; away: ResultTheme } {
+  const home = resolveResultTheme(challenger);
+  const away = resolveResultTheme(opponent);
+  if (wearsTotwBlue(challenger.finish) && opponent.finish === "silver") return { home: TOTW_KIT, away };
+  if (challenger.finish === "silver" && wearsTotwBlue(opponent.finish)) return { home, away: TOTW_KIT };
+  return { home, away };
+}

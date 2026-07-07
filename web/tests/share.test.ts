@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Card } from "@/lib/types";
-import { cardUrl, intentUrl, nativeSharePayload, shareMessage, shareText } from "@/lib/share";
+import { cardUrl, duelIntentUrl, duelShareMessage, duelUrl, intentUrl, nativeSharePayload, shareMessage, shareText } from "@/lib/share";
 
 // We test the share DECISIONS: correct platform endpoints, well-formed encoded
 // URLs, stable per-username text, brag-led message. Not the React wiring.
@@ -83,5 +83,21 @@ describe("share service", () => {
 
   it("share message is the text plus the CTA", () => {
     expect(shareMessage(card())).toContain(shareText(card()));
+  });
+
+  it("duel URL follows the /challenger/vs/opponent pattern", () => {
+    expect(duelUrl("skywalkert", "cpcs")).toBe("https://leetfut.com/skywalkert/vs/cpcs");
+  });
+
+  it("duel share message is score-free and mentions the opponent", () => {
+    const msg = duelShareMessage("skywalkert", "cpcs");
+    expect(msg).toContain("@cpcs");
+    expect(msg).not.toMatch(/\b\d+–\d+\b/);
+  });
+
+  it("duel X intent carries LeetFut hashtag", () => {
+    const u = duelIntentUrl("skywalkert", "cpcs");
+    expect(u).toContain("hashtags=LeetFut");
+    expect(u).toContain(encodeURIComponent("https://leetfut.com/skywalkert/vs/cpcs"));
   });
 });

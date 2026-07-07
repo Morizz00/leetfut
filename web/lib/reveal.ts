@@ -49,3 +49,44 @@ export function sequenceDuration(finish: Finish, reducedMotion: boolean): number
   const steps = sequenceFor(finish, reducedMotion);
   return steps[steps.length - 1]?.at ?? 0;
 }
+
+export type DuelPhase =
+  | { kind: "walkout" }
+  | { kind: "row"; row: number }
+  | { kind: "result" }
+  | { kind: "settled" };
+
+export interface DuelStep {
+  phase: DuelPhase;
+  at: number;
+}
+
+const DUEL_ROWS = 6;
+const DUEL_FIRST_ROW_AT = 1500;
+const DUEL_ROW_GAP = 480;
+const DUEL_RESULT_GAP = 700;
+const DUEL_SETTLE_GAP = 900;
+
+export function duelSequenceFor(reducedMotion: boolean): DuelStep[] {
+  if (reducedMotion) return [{ phase: { kind: "settled" }, at: 0 }];
+  const steps: DuelStep[] = [{ phase: { kind: "walkout" }, at: 0 }];
+  for (let row = 0; row < DUEL_ROWS; row++) {
+    steps.push({
+      phase: { kind: "row", row },
+      at: DUEL_FIRST_ROW_AT + row * DUEL_ROW_GAP,
+    });
+  }
+  const lastRowAt = DUEL_FIRST_ROW_AT + (DUEL_ROWS - 1) * DUEL_ROW_GAP;
+  steps.push({ phase: { kind: "result" }, at: lastRowAt + DUEL_RESULT_GAP });
+  steps.push({
+    phase: { kind: "settled" },
+    at: lastRowAt + DUEL_RESULT_GAP + DUEL_SETTLE_GAP,
+  });
+  return steps;
+}
+
+export function resolvedRows(phase: DuelPhase): number {
+  if (phase.kind === "row") return phase.row + 1;
+  if (phase.kind === "result" || phase.kind === "settled") return DUEL_ROWS;
+  return 0;
+}

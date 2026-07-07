@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Finish } from "@/lib/types";
-import { hasBurst, sequenceDuration, sequenceFor } from "@/lib/reveal";
+import { duelSequenceFor, hasBurst, sequenceDuration, sequenceFor } from "@/lib/reveal";
 
 // We test the DECISIONS the sequencer encodes (which tiers earn a burst, the
 // reduced-motion collapse, phase ordering) — not the animation rendering.
@@ -46,5 +46,9 @@ describe("reveal sequencer", () => {
 
   it("rare reveals run longer than common ones (more spectacle = more time)", () => {
     expect(sequenceDuration("icon", false)).toBeGreaterThan(sequenceDuration("gold", false));
+  });
+
+  it("duel sequence collapses under reduced motion", () => {
+    expect(duelSequenceFor(true)).toEqual([{ phase: { kind: "settled" }, at: 0 }]);
   });
 });
